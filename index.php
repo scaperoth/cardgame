@@ -13,8 +13,6 @@ include dirname(__FILE__) . '/config/config.php';
     </head>
     <body>
         <?php
-        $deck = new MyDeck();
-        echo $deck->id;
         // put your code hereaa
         ?>
     </body>
