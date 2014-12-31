@@ -13,6 +13,11 @@ include dirname(__FILE__) . '/config/config.php';
     </head>
     <body>
         <?php
+        $deck = new PokerDeck();
+        
+        $card = $deck->draw_card();
+        
+        echo $card->title. " of ". $card->suit;
         // put your code hereaa
         ?>
     </body>

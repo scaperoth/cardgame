@@ -21,6 +21,7 @@ class Deck implements iDeck
      */
     public function __construct($id = NULL)
     {
+
         if ($id === NULL)
         {
             //create a string the default size
@@ -49,9 +50,12 @@ class Deck implements iDeck
 
         //the user is able to access index to find the cards array
         $this->data['cards_index'] = self::CARDS_INDEX;
-        
+
         //set the cards array at the specified index
         $this->data[self::CARDS_INDEX] = array();
+
+        //build the deck on deck creation
+        $this->build_deck();
     }
 
     /**
@@ -113,7 +117,26 @@ class Deck implements iDeck
             return pop($this->data[self::CARDS_INDEX]);
         }
 
-        return array_rand($this->data[self::CARDS_INDEX], $num_cards);
+        if (!empty($this->data[self::CARDS_INDEX]))
+        {
+            //try and catch used to catch exception of num_cards being too large
+            try
+            {
+                $key = array_rand($this->data[self::CARDS_INDEX], $num_cards);
+            } catch (Exception $e)
+            {
+                
+            }
+            
+            if ($num_cards === 1)
+            {
+                return $this->data[self::CARDS_INDEX][$key];
+            } else
+            {
+            }
+        }
+
+        return -1;
     }
 
     /**
@@ -128,11 +151,28 @@ class Deck implements iDeck
     /**
      * 
      * @param type $card_obj
-     * @return type
+     * @return boolean for whether or not add was successful
      */
     public function add_card($card_obj)
     {
-        return array_push($this->data[self::CARDS_INDEX], $card_obj);
+        $valid_entry = TRUE;
+
+        $array_obj = new ArrayObject($this->data[self::CARDS_INDEX]);
+        //check to make sure id doesn't already exist
+        for ($iterator = $array_obj->getIterator(); $iterator->valid(); $iterator->next())
+        {
+            if ($iterator->current()->id === $card_obj->id)
+            {
+                $valid_entry = FALSE;
+            }
+        }
+
+        if ($valid_entry)
+        {
+            array_push($this->data[self::CARDS_INDEX], $card_obj);
+        }
+
+        return $valid_entry;
     }
 
     /**

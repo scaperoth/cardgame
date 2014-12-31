@@ -3,5 +3,4 @@
 
 class PokerCard extends Card
 {
-    
 }

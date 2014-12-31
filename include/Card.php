@@ -71,5 +71,6 @@ class Card implements iCard
         return null;
     }
 
-
+    public function print_name(){
+    }
 }
