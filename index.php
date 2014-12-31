@@ -1,6 +1,5 @@
-<?php 
-include "MyDeck.php";
-
+<?php
+include dirname(__FILE__) . '/config/config.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +14,7 @@ include "MyDeck.php";
     <body>
         <?php
         $deck = new MyDeck();
-        
-        echo $deck->draw_card();
+        echo $deck->id;
         // put your code hereaa
         ?>
     </body>
